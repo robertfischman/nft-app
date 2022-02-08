@@ -29,16 +29,22 @@
     },
     "CollectionInfo": {
       "type": "object",
-      "required": [
-        "contract_uri",
-        "creator"
-      ],
       "properties": {
         "contract_uri": {
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "creator": {
-          "$ref": "#/definitions/Addr"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Addr"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "royalties": {
           "anyOf": [
