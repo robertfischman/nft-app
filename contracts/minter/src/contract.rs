@@ -136,7 +136,11 @@ pub fn execute(
     }
 }
 
-pub fn execute_mint(deps: DepsMut, env: Env, info: MessageInfo) -> Result<Response, ContractError> {
+pub fn execute_mint(
+    deps: DepsMut,
+    env: Env,
+    mut info: MessageInfo,
+) -> Result<Response, ContractError> {
     let config = CONFIG.load(deps.storage)?;
     let sg721_address = SG721_ADDRESS.load(deps.storage)?;
     let mut token_id_index = TOKEN_ID_INDEX.load(deps.storage)?;
@@ -149,9 +153,20 @@ pub fn execute_mint(deps: DepsMut, env: Env, info: MessageInfo) -> Result<Respon
         }
     }
 
-    // Check funds sent is correct amount
-    if !has_coins(&info.funds, &config.unit_price) {
-        return Err(ContractError::NotEnoughFunds {});
+    // require some funds
+    let amount = match info.funds.pop() {
+        Some(coin) => coin,
+        None => {
+            return Err(ContractError::NotEnoughFunds {});
+        }
+    };
+    // if there are any more coins, reject the message
+    if !info.funds.is_empty() {
+        return Err(ContractError::TooManyCoins {});
+    }
+    // check that the amount is correct
+    if amount != config.unit_price {
+        return Err(ContractError::IncorrectPrice {});
     }
 
     // Check if over max tokens
