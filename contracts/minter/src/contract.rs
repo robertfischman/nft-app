@@ -487,7 +487,7 @@ mod tests {
             num_tokens,
             token_uris: vec![String::from("https://stargaze.zone/logo.png"); num_tokens as usize],
             whitelist_expiration: None,
-            whitelist_addresses: Some(vec![String::from("VIPcollector")]),
+            whitelist_addresses: Some(vec![pad_test_addr("VIPcollector")]),
             start_time: None,
             per_address_limit: None,
             sg721_code_id,
@@ -519,8 +519,8 @@ mod tests {
 
     // Add a creator account with initial balances
     fn setup_accounts(router: &mut App) -> Result<(Addr, Addr), ContractError> {
-        let buyer: Addr = Addr::unchecked("buyer");
-        let creator: Addr = Addr::unchecked("creator");
+        let buyer: Addr = Addr::unchecked(pad_test_addr("buyer"));
+        let creator: Addr = Addr::unchecked(pad_test_addr("creator"));
         let funds: Vec<Coin> = coins(INITIAL_BALANCE, DENOM);
         router
             .sudo(SudoMsg::Bank({
@@ -564,7 +564,7 @@ mod tests {
             num_tokens: 100,
             token_uris: vec![String::from("https://stargaze.zone/logo.png")],
             whitelist_expiration: None,
-            whitelist_addresses: Some(vec![String::from("VIPcollector")]),
+            whitelist_addresses: Some(vec![pad_test_addr("VIPcollector")]),
             start_time: None,
             per_address_limit: None,
             sg721_code_id: 1,
@@ -711,7 +711,7 @@ mod tests {
             .query_wasm_smart(
                 sale_addr.clone(),
                 &QueryMsg::OnWhitelist {
-                    address: "buyer".to_string(),
+                    address: pad_test_addr("buyer"),
                 },
             )
             .unwrap();
