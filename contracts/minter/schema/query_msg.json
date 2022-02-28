@@ -13,6 +13,18 @@
         }
       },
       "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "mint_price"
+      ],
+      "properties": {
+        "mint_price": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
     }
   ]
 }
