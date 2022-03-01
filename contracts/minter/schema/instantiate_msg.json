@@ -52,22 +52,18 @@
     },
     "CollectionInfo": {
       "type": "object",
+      "required": [
+        "image"
+      ],
       "properties": {
-        "contract_uri": {
+        "external_link": {
           "type": [
             "string",
             "null"
           ]
         },
-        "creator": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Addr"
-            },
-            {
-              "type": "null"
-            }
-          ]
+        "image": {
+          "type": "string"
         },
         "royalties": {
           "anyOf": [
