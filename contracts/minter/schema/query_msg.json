@@ -25,6 +25,18 @@
         }
       },
       "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "minter_addresses"
+      ],
+      "properties": {
+        "minter_addresses": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
     }
   ]
 }
