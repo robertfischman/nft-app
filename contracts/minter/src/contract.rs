@@ -141,6 +141,14 @@ pub fn execute_mint(
     env: Env,
     mut info: MessageInfo,
 ) -> Result<Response, ContractError> {
+    let mintable_result: StdResult<Vec<u32>> = MINTABLE_TOKEN_IDS
+        .keys(deps.storage, None, None, Order::Ascending)
+        .take(1)
+        .collect();
+    if mintable_result.unwrap().is_empty() {
+        return Err(ContractError::SoldOut {});
+    }
+
     let config = CONFIG.load(deps.storage)?;
     let sg721_address = SG721_ADDRESS.load(deps.storage)?;
     let mut token_id_index = TOKEN_ID_INDEX.load(deps.storage)?;
