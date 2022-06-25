@@ -141,7 +141,7 @@ func TestMinter(t *testing.T) {
 	require.Equal(t, res.CodeID, uint64(1))
 
 	// whitelist
-	b, err = ioutil.ReadFile("contracts/whitelist.wasm")
+	b, err = ioutil.ReadFile("contracts/sg_whitelist.wasm")
 	require.NoError(t, err)
 
 	res, err = msgServer.StoreCode(sdk.WrapSDKContext(ctx), &types.MsgStoreCode{
@@ -352,7 +352,7 @@ func TestWhitelistMinter(t *testing.T) {
 	require.Equal(t, res.CodeID, uint64(1))
 
 	// whitelist
-	b, err = ioutil.ReadFile("contracts/whitelist.wasm")
+	b, err = ioutil.ReadFile("contracts/sg_whitelist.wasm")
 	require.NoError(t, err)
 
 	res, err = msgServer.StoreCode(sdk.WrapSDKContext(ctx), &types.MsgStoreCode{
